@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 2nd March 2024 2:38 AM
  * Purpose: This class is used to configure the security of the application
  */
 package com.ddu.backend.configs;
@@ -14,18 +14,37 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfiguration {
+
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    private static final String SWAGGER_UI_PATH[] = {
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/ui/**"
+    };
 
     public SecurityConfiguration(
             JwtAuthenticationFilter jwtAuthenticationFilter,
@@ -34,12 +53,18 @@ public class SecurityConfiguration {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        List<RequestMatcher> requestMatchers = Arrays.stream(SWAGGER_UI_PATH)
+                .map(AntPathRequestMatcher::new)
+                .collect(Collectors.toList());
+        requestMatchers.add(new AntPathRequestMatcher("/auth/**"));
+
         http.csrf(csrf -> csrf
                 .disable())
-                .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/**")
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(new OrRequestMatcher(requestMatchers))
                         .permitAll()
                         .anyRequest()
                         .authenticated())

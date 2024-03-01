@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 2nd March 2024 2:38 AM
  * Purpose: This class is used to handle the faculty related operations
  */
 package com.ddu.backend.controllers;
@@ -10,13 +10,13 @@ import com.ddu.backend.responses.UserResponse;
 import com.ddu.backend.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/faculty")
-@Controller
+@RestController
 public class FacultyController {
     private final UserService userService;
 

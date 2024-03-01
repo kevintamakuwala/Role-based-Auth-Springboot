@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 5:05 PM
+ * Modified: 2nd March 2024 2:38 AM
  * Purpose: This class is used to handle the authentication of the user
  */
 package com.ddu.backend.controllers;
@@ -14,11 +14,10 @@ import com.ddu.backend.responses.UserResponse;
 import com.ddu.backend.services.AuthenticationService;
 import com.ddu.backend.services.JwtService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/auth")
-@Controller
+@RestController
 public class AuthenticationController {
     private final JwtService jwtService;
     private final AuthenticationService authenticationService;

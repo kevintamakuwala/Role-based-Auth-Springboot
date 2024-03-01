@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 5:05 PM
+ * Modified: 2nd March 2024 2:38 AM
  * Purpose: This class is used to handle the lab related operations
  */
 package com.ddu.backend.controllers;
@@ -12,12 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ddu.backend.dtos.LabDto;
 import com.ddu.backend.entities.Lab;
@@ -25,7 +25,7 @@ import com.ddu.backend.entities.User;
 import com.ddu.backend.responses.LabResponse;
 import com.ddu.backend.services.LabService;
 
-@Controller
+@RestController
 @RequestMapping("/labs")
 public class LabController {
 
