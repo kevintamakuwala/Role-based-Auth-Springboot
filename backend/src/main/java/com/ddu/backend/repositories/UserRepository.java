@@ -1,7 +1,7 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
- * Purpose: repository for user
+ * Modified: 1st March 2024 3:29 PM
+ * Purpose: repository for user.
  */
 package com.ddu.backend.repositories;
 
@@ -14,5 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    
+    // finding a user by its email.
     Optional<User> findByEmail(String email);
 }

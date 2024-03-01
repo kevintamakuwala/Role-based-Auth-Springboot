@@ -1,12 +1,11 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
  * Modified: 29th February 2024 5:05 PM
- * Purpose: LabResponse is used to transfer the Lab data
+ * Purpose: This class is used to represent the lab response.
  */
 package com.ddu.backend.responses;
 
 import java.util.List;
-
 
 import lombok.Getter;
 import lombok.ToString;
@@ -14,12 +13,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class LabResponse {
-    private Long id;
+    private Long labId;
     private String name;
     private List<UserResponse> faculties;
+    private List<LabResourceResponse> resources;
 
-    public LabResponse setId(Long id) {
-        this.id = id;
+    public LabResponse setId(Long labId) {
+        this.labId = labId;
         return this;
     }
 
@@ -30,6 +30,11 @@ public class LabResponse {
 
     public LabResponse setFaculties(List<UserResponse> faculties) {
         this.faculties = faculties;
+        return this;
+    }
+
+    public LabResponse setResources(List<LabResourceResponse> resources) {
+        this.resources = resources;
         return this;
     }
 

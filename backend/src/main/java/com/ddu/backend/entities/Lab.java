@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 5:05 PM
+ * Modified: 1st March 2024 2:12 PM
  * Purpose: Lab is used to store the lab data
  */
 
@@ -33,6 +33,11 @@ public class Lab {
     @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> faculties = new ArrayList<>();
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LabResource> resources = new ArrayList<>();
+
+    // Setters for chaining purpose
     public Lab setId(Long id) {
         this.id = id;
         return this;
@@ -48,4 +53,8 @@ public class Lab {
         return this;
     }
 
+    public Lab setResources(List<LabResource> resources) {
+        this.resources = resources;
+        return this;
+    }
 }

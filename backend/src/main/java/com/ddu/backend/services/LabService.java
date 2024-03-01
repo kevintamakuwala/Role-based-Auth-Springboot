@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.ddu.backend.entities.Lab;
 import com.ddu.backend.entities.User;
 import com.ddu.backend.repositories.LabRepository;
 import com.ddu.backend.repositories.UserRepository;
+import com.ddu.backend.responses.LabResourceResponse;
 import com.ddu.backend.responses.LabResponse;
 import com.ddu.backend.responses.UserResponse;
 
@@ -40,7 +42,7 @@ public class LabService {
         if (optionalLab.isPresent()) {
             return null;
         }
-        Lab lab = new Lab().setName(input.getName()).setFaculties(new ArrayList<>());
+        Lab lab = new Lab().setName(input.getName()).setFaculties(new ArrayList<>()).setResources(new ArrayList<>());
         labRepository.save(lab);
         return lab;
     }
@@ -66,18 +68,28 @@ public class LabService {
         List<LabResponse> labResponses = new ArrayList<>();
 
         for (Lab lab : labs) {
-            List<UserResponse> userResponses = lab.getFaculties().stream().map(user -> new UserResponse()
-                    .setId(user.getId())
-                    .setFullName(user.getFullName())
-                    .setEmail(user.getEmail())
-                    .setLabName(lab.getName())
-                    .setRoleName(user.getRole().getName())).collect(Collectors.toList());
+            List<UserResponse> userResponses = lab.getFaculties().stream()
+                    .map(user -> new UserResponse()
+                            .setId(user.getId())
+                            .setFullName(user.getFullName())
+                            .setEmail(user.getEmail())
+                            .setLabName(lab.getName())
+                            .setRoleName(user.getRole().getName()))
+                    .collect(Collectors.toList());
+
+            List<LabResourceResponse> labResourceResponses = lab.getResources().stream()
+                    .map(resource -> new LabResourceResponse()
+                            .setResourceId(resource.getId())
+                            .setResourceName(resource.getResourceName())
+                            .setQuantity(resource.getQuantity()))
+                    .collect(Collectors.toList());
 
             labResponses.add(
                     new LabResponse()
                             .setId(lab.getId())
                             .setName(lab.getName())
-                            .setFaculties(userResponses));
+                            .setFaculties(userResponses)
+                            .setResources(labResourceResponses));
         }
         return labResponses;
     }
@@ -97,10 +109,18 @@ public class LabService {
                         .setLabName(lab.getName())
                         .setRoleName(faculty.getRole().getName())).collect(Collectors.toList());
 
+                List<LabResourceResponse> labResponses = lab.getResources().stream()
+                        .map(resource -> new LabResourceResponse()
+                                .setResourceId(resource.getId())
+                                .setResourceName(resource.getResourceName())
+                                .setQuantity(resource.getQuantity()))
+                        .collect(Collectors.toList());
+
                 LabResponse labResponse = new LabResponse()
                         .setId(lab.getId())
                         .setName(lab.getName())
-                        .setFaculties(userResponses);
+                        .setFaculties(userResponses)
+                        .setResources(labResponses);
 
                 return labResponse;
             } else {
@@ -125,7 +145,7 @@ public class LabService {
 
         if (myLab.get() != null) {
             allLabs = allLabs.stream()
-                    .filter(lab -> !lab.getId().equals(myLab.get().getId()))
+                    .filter(lab -> !lab.getLabId().equals(myLab.get().getLabId()))
                     .collect(Collectors.toList());
         }
 

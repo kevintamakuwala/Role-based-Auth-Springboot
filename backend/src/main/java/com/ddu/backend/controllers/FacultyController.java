@@ -32,5 +32,5 @@ public class FacultyController {
         UserResponse user = userService.createFaculty(input);
         return ResponseEntity.ok(user);
     }
-
+    
 }
