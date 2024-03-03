@@ -5,6 +5,11 @@
  */
 package com.ddu.backend.responses;
 
+
+import com.ddu.backend.entities.RoleEnum;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -15,6 +20,9 @@ public class LoginResponse {
 
     private long expiresIn;
 
+    @Enumerated(EnumType.STRING)
+    private RoleEnum roleName;
+
     public LoginResponse setToken(String token) {
         this.token = token;
         return this;
@@ -22,6 +30,11 @@ public class LoginResponse {
 
     public LoginResponse setExpiresIn(long expiresIn) {
         this.expiresIn = expiresIn;
+        return this;
+    }
+
+    public LoginResponse setRole(RoleEnum roleName) {
+        this.roleName = roleName;
         return this;
     }
 }
