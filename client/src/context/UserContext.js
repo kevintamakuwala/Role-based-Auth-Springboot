@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const UserContext = createContext();
 
@@ -8,8 +8,10 @@ export const UserProvider = ({ children }) => {
     return storedUserType ? storedUserType : "";
   });
 
+  const [userDetails, setUserDetails] = useState({})
+
   return (
-    <UserContext.Provider value={{ userType, setUserType }}>
+    <UserContext.Provider value={{ userType, setUserType, userDetails, setUserDetails }}>
       {children}
     </UserContext.Provider>
   );

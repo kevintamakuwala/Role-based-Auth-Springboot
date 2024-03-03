@@ -18,10 +18,6 @@ function App() {
 
   const [isSidebarActive, setIsSidebarActive] = useState(false);
 
-  const [activeMenu, setActiveMenu] = useState(
-    document.querySelector(".active")?.innerHTML
-  );
-
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
     setUserType(storedUserType || "");
@@ -42,12 +38,10 @@ function App() {
             <Sidebar
               isSidebarActive={isSidebarActive}
               setIsSidebarActive={setIsSidebarActive}
-              setActiveMenu={setActiveMenu}
             />
 
             <Navbar
               setIsSidebarActive={setIsSidebarActive}
-              activeMenu={activeMenu}
             />
           </>
         )}

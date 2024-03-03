@@ -1,7 +1,9 @@
 import "../styles/Components.scss";
 import menuIcon from "../assets/menu_icon.png";
+import { useUser } from "../context/UserContext";
 
-const Navbar = ({ setIsSidebarActive, activeMenu }) => {
+const Navbar = ({ setIsSidebarActive }) => {
+  const { userDetails } = useUser();
   return (
     <nav>
       <div className="icon">
@@ -13,7 +15,11 @@ const Navbar = ({ setIsSidebarActive, activeMenu }) => {
         />
       </div>
 
-      <span id="active_menu">{activeMenu}</span>
+      {userDetails?.fullName && (
+        <span id="active_menu" style={{ color: "white" }}>
+          Welcome, {userDetails?.fullName}
+        </span>
+      )}
     </nav>
   );
 };
