@@ -20,27 +20,33 @@ nav {
   z-index: 100;
   max-width: 300px;
   height: calc(100vh - 2rem);
-
+  
   .menu_list {
     width: 80%;
     margin: 2rem auto;
-
+    
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    
     ul {
       li {
         display: flex;
         list-style: none;
         background-color: #151515;
         margin: 15px 0;
-
         border-top: solid #404040 1px;
         border-bottom: solid #404040 1px;
-
+        
         .active {
           background-color: #d9d9d9;
           color: black;
         }
-
+        
         a {
+          color: white;
           width: 100%;
           padding: 0.7rem 0;
           text-align: center;
@@ -65,6 +71,7 @@ nav {
       border-radius: 5px;
       padding: 0.7rem 4rem;
       margin: 0 auto;
+      color: white;
     }
   }
 }
@@ -128,6 +135,7 @@ nav {
         padding: 0.5rem 2rem;
         border: none;
         background-color: black;
+        color: white;
         border-radius: 10px;
       }
     }

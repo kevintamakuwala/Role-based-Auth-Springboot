@@ -23,6 +23,7 @@ const Login = () => {
       .post(`${baseurl}/auth/login`, formData)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userType", response.data.roleName);
       })
       .catch((error) => console.error(error));
     navigate("/");

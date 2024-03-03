@@ -1,8 +1,12 @@
 import React from "react";
 import closeIcon from "../assets/close_icon.png";
 import { NavLink } from "react-router-dom";
+import DDULogo from "../assets/logo.png";
+import { useUser } from "../context/UserContext";
 
 const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
+  const { userType } = useUser();
+
   const logout = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -23,6 +27,9 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
             </div>
 
             <div className="menu_list">
+              <div className="logo">
+                <img src={DDULogo} alt="ddu" />
+              </div>
               <ul>
                 <li>
                   <NavLink
@@ -36,52 +43,42 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
                     Home
                   </NavLink>
                 </li>
+                {userType !== "FACULTY" && (
+                  <li>
+                    <NavLink
+                      to={"/faculties"}
+                      activeClassName="active_menu"
+                      onClick={() => {
+                        setActiveMenu("Home");
+                        setIsSidebarActive(false);
+                      }}
+                    >
+                      Faculties
+                    </NavLink>
+                  </li>
+                )}
                 <li>
                   <NavLink
-                    to={"/profiles"}
+                    to={"/labs"}
                     activeClassName="active_menu"
                     onClick={() => {
-                      setActiveMenu("Profiles");
+                      setActiveMenu("Home");
                       setIsSidebarActive(false);
                     }}
                   >
-                    Profiles
+                    Labs
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
-                    to={"/bills"}
+                    to={"/labs-resources"}
                     activeClassName="active_menu"
                     onClick={() => {
-                      setActiveMenu("Bills");
+                      setActiveMenu("Home");
                       setIsSidebarActive(false);
                     }}
                   >
-                    Bills
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/rooms"}
-                    activeClassName="active_menu"
-                    onClick={() => {
-                      setActiveMenu("Rooms");
-                      setIsSidebarActive(false);
-                    }}
-                  >
-                    Rooms
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/inventory"}
-                    activeClassName="active_menu"
-                    onClick={() => {
-                      setActiveMenu("Inventory");
-                      setIsSidebarActive(false);
-                    }}
-                  >
-                    Inventory
+                    Labs Resources
                   </NavLink>
                 </li>
               </ul>
