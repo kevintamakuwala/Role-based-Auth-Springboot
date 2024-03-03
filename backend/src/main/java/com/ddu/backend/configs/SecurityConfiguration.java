@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -63,6 +65,7 @@ public class SecurityConfiguration {
 
         http.csrf(csrf -> csrf
                 .disable())
+                .cors(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(new OrRequestMatcher(requestMatchers))
                         .permitAll()
@@ -80,7 +83,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8000", "http://localhost:3000"));
         configuration.setAllowedMethods(List.of("GET", "POST"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
