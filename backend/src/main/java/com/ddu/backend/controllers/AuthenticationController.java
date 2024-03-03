@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 2nd March 2024 2:38 AM
+ * Modified: 3rd March 2024 20:59 AM
  * Purpose: This class is used to handle the authentication of the user
  */
 package com.ddu.backend.controllers;
@@ -53,7 +53,8 @@ public class AuthenticationController {
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
-                .setExpiresIn(jwtService.getExpirationTime());
+                .setExpiresIn(jwtService.getExpirationTime())
+                .setRole(authenticatedUser.getRole().getName());
 
         return ResponseEntity.ok(loginResponse);
     }
