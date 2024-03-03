@@ -2,8 +2,11 @@ import React from "react";
 import useFetch from "../hooks/useFetch";
 import "../styles/Labs.scss";
 import { baseurl } from "../config";
+import { useNavigate } from "react-router-dom";
 
 const Faculties = () => {
+  const navigate = useNavigate();
+
   var { data: faculties, loading, error } = useFetch(`${baseurl}/users`);
 
   faculties = faculties?.filter((faculty) => faculty.roleName === "FACULTY");
@@ -19,6 +22,7 @@ const Faculties = () => {
     <div className="faculties__container">
       <div className="faculties__header">
         <h1>Faculties</h1>
+        <button onClick={() => navigate('/add-faculty')}>Add faculty</button>
       </div>
       <div className="faculties__content">
         {faculties?.map((faculty) => {

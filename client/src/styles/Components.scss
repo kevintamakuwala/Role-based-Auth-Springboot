@@ -20,17 +20,17 @@ nav {
   z-index: 100;
   max-width: 300px;
   height: calc(100vh - 2rem);
-  
+
   .menu_list {
     width: 80%;
     margin: 2rem auto;
-    
+
     .logo {
       display: flex;
       justify-content: center;
       margin: 2rem 0;
     }
-    
+
     ul {
       li {
         display: flex;
@@ -39,12 +39,12 @@ nav {
         margin: 15px 0;
         border-top: solid #404040 1px;
         border-bottom: solid #404040 1px;
-        
+
         .active {
           background-color: #d9d9d9;
           color: black;
         }
-        
+
         a {
           color: white;
           width: 100%;
@@ -141,5 +141,44 @@ nav {
     }
   }
 }
-
 // login css ends
+
+// form css starts
+.form__container {
+  width: 100%;
+
+  .form__header {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: solid black 1px;
+      width: 85%;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.5rem 2rem;
+      border: none;
+      background-color: black;
+      color: white;
+      border-radius: 5px;
+    }
+  }
+}
+
+// form css ends

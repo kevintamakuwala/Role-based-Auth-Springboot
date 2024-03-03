@@ -12,6 +12,7 @@ import Labs from "./pages/Labs";
 import LabsResources from "./pages/LabsResources";
 import Faculties from "./pages/Faculties";
 import Error404 from "./pages/Error404";
+import AddFaculty from "./pages/AddForms/AddFaculty";
 
 function App() {
   var { userType, setUserType } = useUser();
@@ -71,6 +72,10 @@ function App() {
           <Route
             path="/faculties"
             element={<ProtectedRoute roles={["HOD"]} element={<Faculties />} />}
+          />
+          <Route
+            path="/add-faculty"
+            element={<ProtectedRoute roles={["HOD"]} element={<AddFaculty />} />}
           />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<Error404 />} />
