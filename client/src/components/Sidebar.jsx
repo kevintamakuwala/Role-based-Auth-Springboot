@@ -9,6 +9,7 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userType");
     window.location.reload();
   };
 

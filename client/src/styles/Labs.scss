@@ -1,9 +1,11 @@
 .labs__container,
-.labs_resources__container {
+.labs_resources__container,
+.faculties__container {
   width: calc(100% - 4rem);
   margin: 0 2rem;
 
-  .labs__header {
+  .labs__header,
+  .faculties__header {
     margin-bottom: 1rem;
     margin-top: 2rem;
 
@@ -12,13 +14,15 @@
     }
   }
 
-  .labs__content {
+  .labs__content,
+  .faculties__content {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
 
-    .lab__card {
+    .lab__card,
+    .faculty__card {
       min-width: 15rem;
       min-height: 7rem;
       margin-bottom: 1rem;
