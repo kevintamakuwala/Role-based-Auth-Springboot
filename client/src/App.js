@@ -12,15 +12,12 @@ import Labs from "./pages/Labs";
 import LabsResources from "./pages/LabsResources";
 import Faculties from "./pages/Faculties";
 import Error404 from "./pages/Error404";
+import AddFaculty from "./pages/AddForms/AddFaculty";
 
 function App() {
   var { userType, setUserType } = useUser();
 
   const [isSidebarActive, setIsSidebarActive] = useState(false);
-
-  const [activeMenu, setActiveMenu] = useState(
-    document.querySelector(".active")?.innerHTML
-  );
 
   useEffect(() => {
     const storedUserType = localStorage.getItem("userType");
@@ -42,12 +39,10 @@ function App() {
             <Sidebar
               isSidebarActive={isSidebarActive}
               setIsSidebarActive={setIsSidebarActive}
-              setActiveMenu={setActiveMenu}
             />
 
             <Navbar
               setIsSidebarActive={setIsSidebarActive}
-              activeMenu={activeMenu}
             />
           </>
         )}
@@ -78,6 +73,10 @@ function App() {
             path="/faculties"
             element={<ProtectedRoute roles={["HOD"]} element={<Faculties />} />}
           />
+          <Route
+            path="/add-faculty"
+            element={<ProtectedRoute roles={["HOD"]} element={<AddFaculty />} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<Error404 />} />
         </Routes>
@@ -95,7 +94,7 @@ const ProtectedRoute = ({ element, roles }) => {
     return <Navigate to="/login" />;
   }
 
-  if (roles && roles.length > 0 && !roles.includes(userType)) {
+  if (roles && roles.length > 0 && userType && !roles.includes(userType)) {
     return <Navigate to="/404" />;
   }
 

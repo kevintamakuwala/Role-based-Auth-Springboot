@@ -1,0 +1,58 @@
+.labs__container,
+.labs_resources__container,
+.faculties__container {
+  width: calc(100% - 4rem);
+  margin: 0 2rem;
+
+  .labs__header,
+  .faculties__header {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    button {
+      padding: 0.3rem 1rem;
+      background: white;
+      border: 1px solid;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .labs__content,
+  .faculties__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    .lab__card,
+    .faculty__card {
+      min-width: 15rem;
+      min-height: 7rem;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+      padding: 1rem;
+      background-color: #d9d9d9;
+      border-radius: 5px;
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        margin: 0 0 1rem 0;
+        font-size: unset;
+        font-weight: 500;
+      }
+
+      ul {
+        margin: 0 1rem;
+      }
+    }
+  }
+}
