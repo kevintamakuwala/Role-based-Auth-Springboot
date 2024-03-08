@@ -4,11 +4,12 @@ import { NavLink } from "react-router-dom";
 import DDULogo from "../assets/logo.png";
 import { useUser } from "../context/UserContext";
 
-const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
+const Sidebar = ({ isSidebarActive, setIsSidebarActive }) => {
   const { userType } = useUser();
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userType");
     window.location.reload();
   };
 
@@ -36,7 +37,6 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
                     to={"/"}
                     activeClassName="active_menu"
                     onClick={() => {
-                      setActiveMenu("Home");
                       setIsSidebarActive(false);
                     }}
                   >
@@ -49,7 +49,6 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
                       to={"/faculties"}
                       activeClassName="active_menu"
                       onClick={() => {
-                        setActiveMenu("Home");
                         setIsSidebarActive(false);
                       }}
                     >
@@ -62,7 +61,6 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
                     to={"/labs"}
                     activeClassName="active_menu"
                     onClick={() => {
-                      setActiveMenu("Home");
                       setIsSidebarActive(false);
                     }}
                   >
@@ -74,7 +72,6 @@ const Sidebar = ({ isSidebarActive, setIsSidebarActive, setActiveMenu }) => {
                     to={"/labs-resources"}
                     activeClassName="active_menu"
                     onClick={() => {
-                      setActiveMenu("Home");
                       setIsSidebarActive(false);
                     }}
                   >
