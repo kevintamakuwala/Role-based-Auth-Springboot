@@ -1,20 +1,26 @@
 /*
- * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 3rd March 2024 20:59 AM
- * Purpose: This class is used to handle the authentication of the user
- */
+ * Author: Kevin Tamakuwala (21ITUBS120)
+ * Modified: 8th March 2024 9:37 PM
+ *  Purpose: This class is used to handle the authentication of the user.
+*/
+
 package com.ddu.backend.controllers;
 
-import com.ddu.backend.dtos.LoginUserDto;
-import com.ddu.backend.dtos.RegisterUserDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ddu.backend.entities.RoleEnum;
 import com.ddu.backend.entities.User;
-import com.ddu.backend.responses.LoginResponse;
-import com.ddu.backend.responses.UserResponse;
+import com.ddu.backend.requests.LoginUserReq;
+import com.ddu.backend.requests.RegisterUserReq;
+import com.ddu.backend.responses.LoginUserRes;
+import com.ddu.backend.responses.UserRes;
 import com.ddu.backend.services.AuthenticationService;
 import com.ddu.backend.services.JwtService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/auth")
 @RestController
@@ -28,34 +34,28 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup/{role}")
-    public ResponseEntity<UserResponse> register(@RequestBody RegisterUserDto registerUserDto,
+    public ResponseEntity<UserRes> register(@RequestBody RegisterUserReq registerUserReq,
             @PathVariable String role) {
 
-        User registeredUser = authenticationService.signup(registerUserDto, RoleEnum.valueOf(role));
+        User registeredUser = authenticationService.signup(registerUserReq, RoleEnum.valueOf(role));
 
-        UserResponse userResponse = new UserResponse()
-                .setEmail(registeredUser.getEmail())
-                .setFullName(registeredUser.getFullName())
-                .setId(registeredUser.getId())
-                .setLabName(
-                        registeredUser.getLab() != null
-                                ? registeredUser.getLab().getName()
-                                : "")
-                .setRoleName(RoleEnum.valueOf(role));
+        UserRes userResponse = new UserRes(registeredUser.getId(), registeredUser.getEmail(),
+                registeredUser.getFullName(),
+                registeredUser.getRole().getRoleType());
 
         return ResponseEntity.ok(userResponse);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
-        User authenticatedUser = authenticationService.authenticate(loginUserDto);
+    public ResponseEntity<LoginUserRes> authenticate(@RequestBody LoginUserReq loginUserReq) {
+        User authenticatedUser = authenticationService.authenticate(loginUserReq);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
-                .setExpiresIn(jwtService.getExpirationTime())
-                .setRole(authenticatedUser.getRole().getName());
+        LoginUserRes loginResponse = new LoginUserRes(jwtToken, jwtService.getExpirationTime(),
+                authenticatedUser.getRole().getRoleType());
 
         return ResponseEntity.ok(loginResponse);
     }
+
 }

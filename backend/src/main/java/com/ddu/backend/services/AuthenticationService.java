@@ -1,12 +1,12 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 8th March 2024 10:45 PM
  * Purpose: AuthenticationService is used to authenticate the user based on credentials
  */
 package com.ddu.backend.services;
 
-import com.ddu.backend.dtos.LoginUserDto;
-import com.ddu.backend.dtos.RegisterUserDto;
+import com.ddu.backend.requests.LoginUserReq;
+import com.ddu.backend.requests.RegisterUserReq;
 import com.ddu.backend.entities.Role;
 import com.ddu.backend.entities.RoleEnum;
 import com.ddu.backend.entities.User;
@@ -39,24 +39,24 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(RegisterUserDto input, RoleEnum roleEnum) {
-        Optional<Role> optionalRole = roleRepository.findByName(roleEnum);
+    public User signup(RegisterUserReq input, RoleEnum roleEnum) {
+        Optional<Role> optionalRole = roleRepository.findByRoleType(roleEnum);
 
         if (optionalRole.isEmpty()) {
             return null;
         }
 
-        User user = new User()
-                .setFullName(input.getFullName())
-                .setEmail(input.getEmail())
-                .setPassword(passwordEncoder.encode(input.getPassword()))
-                .setRole(optionalRole.get());
+        User user = new User();
+        user.setFullName(input.getFullName());
+        user.setEmail(input.getEmail());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setRole(optionalRole.get());
 
         System.out.println(user.getRole());
         return userRepository.save(user);
     }
 
-    public User authenticate(LoginUserDto input) {
+    public User authenticate(LoginUserReq input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(input.getEmail(), input.getPassword()));
         return userRepository.findByEmail(input.getEmail()).orElseThrow();

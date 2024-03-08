@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 8th March 2024 10:45 PM
  * Purpose: This service is used to generate and validate the JWT token
  */
 package com.ddu.backend.services;
@@ -52,8 +52,7 @@ public class JwtService {
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
-            long expiration
-    ) {
+            long expiration) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

@@ -1,6 +1,6 @@
 /*
  *  Author: Kevin Tamakuwala (21ITUBS120)
- *  Modified: 2nd March 2024 2:37 AM
+ *  Modified: 8th March 2024 9:37 PM
  *  Purpose: This class is used to configure the swagger documentation for the application.
 */
 

@@ -1,8 +1,8 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 8th March 2024 9:00 PM
  * Purpose: This class is used to handle the global exceptions
- */
+*/
 
 package com.ddu.backend.exceptions;
 

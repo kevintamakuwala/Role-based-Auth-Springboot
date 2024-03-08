@@ -1,6 +1,6 @@
 /*
  * Author: Kevin Tamakuwala (21ITUBS120) 
- * Modified: 29th February 2024 1:30 AM
+ * Modified: 8th March 2024 9:37 PM
  * Purpose: This class is used to seed the database with roles 
  */
 package com.ddu.backend.bootstrap;
@@ -13,7 +13,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -30,16 +29,15 @@ public class RoleSeeder implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void loadRoles() {
-        RoleEnum[] roleNames = new RoleEnum[]{RoleEnum.FACULTY, RoleEnum.HOD};
-        Map<RoleEnum, String> roleDescriptionMap = Map.of(RoleEnum.FACULTY, "FACULTY role", RoleEnum.HOD, "HOD role");
+        RoleEnum[] roleNames = new RoleEnum[] { RoleEnum.HOD, RoleEnum.FACULTY };
 
         Arrays.stream(roleNames).forEach(roleName -> {
-            Optional<Role> optionalRole = roleRepository.findByName(roleName);
+            Optional<Role> optionalRole = roleRepository.findByRoleType(roleName);
 
             if (optionalRole.isEmpty()) {
-                Role roleToCreate = new Role()
-                        .setName(roleName)
-                        .setDescription(roleDescriptionMap.get(roleName));
+                Role roleToCreate = new Role();
+
+                roleToCreate.setRoleType(roleName);
 
                 roleRepository.save(roleToCreate);
             }
